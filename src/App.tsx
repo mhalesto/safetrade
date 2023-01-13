@@ -1,26 +1,54 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { Sidebar, Menu, MenuItem, useProSidebar } from 'react-pro-sidebar';
+import { FaAngular, FaWarehouse } from "react-icons/fa";
+import { Link } from 'react-router-dom';
+import { useState } from "react";
+import Dashboard from './pages/dashboard';
+import Shipments from './pages/shipments';
 
 function App() {
+  const { collapseSidebar } = useProSidebar();
+  const [sideBarRouter, setSideBarRouter] = useState('shipments');
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{ display: 'flex', height: '100%' }}>
+      <Sidebar backgroundColor='#122046' className='h-screen'>
+        <Menu>
+          <MenuItem icon={''} className='text-white text-center font-bold font-mont text-3xl mt-3'> Safetrade </MenuItem>
+          <MenuItem icon={''}>  </MenuItem>
+
+          <MenuItem onClick={() => setSideBarRouter('dashboard')} className='text-white text-lg'> Dashboard </MenuItem>
+          <MenuItem onClick={() => setSideBarRouter('shipments')} className='text-white text-lg'> Shipments </MenuItem>
+          <MenuItem onClick={() => setSideBarRouter('projects')} className='text-white text-lg'> Projects </MenuItem>
+          <MenuItem onClick={() => setSideBarRouter('businesses')} className='text-white text-lg'> Businesses </MenuItem>
+          <MenuItem onClick={() => setSideBarRouter('news')} className='text-white text-lg'> News </MenuItem>
+
+
+        </Menu>
+      </Sidebar>
+      <main className='w-full'>
+        <button onClick={() => collapseSidebar()}>Collapse</button>
+
+        {
+          (sideBarRouter === 'dashboard') ?
+            (
+              <Dashboard />
+            ) : (sideBarRouter === 'shipments') ? (
+              <Shipments />
+            ) : (sideBarRouter === 'projects') ? (
+              <div>Projects</div>
+            ) : (sideBarRouter === 'businesses') ? (
+              <div>Businesses</div>
+            ) : (sideBarRouter === 'news') ? (
+              <div>News</div>
+            ) : (
+              <div>404</div>
+            )
+        }
+
+      </main>
     </div>
-  );
+  )
 }
 
 export default App;
