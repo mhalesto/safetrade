@@ -4,10 +4,11 @@ import { FaAngular, FaWarehouse } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import { useState } from "react";
 import Dashboard from './pages/dashboard';
+import Shipments from './pages/shipments';
 
 function App() {
   const { collapseSidebar } = useProSidebar();
-  const [sideBarRouter, setSideBarRouter] = useState('dashboard');
+  const [sideBarRouter, setSideBarRouter] = useState('shipments');
 
   return (
     <div style={{ display: 'flex', height: '100%' }}>
@@ -25,7 +26,7 @@ function App() {
 
         </Menu>
       </Sidebar>
-      <main>
+      <main className='w-full'>
         <button onClick={() => collapseSidebar()}>Collapse</button>
 
         {
@@ -33,7 +34,7 @@ function App() {
             (
               <Dashboard />
             ) : (sideBarRouter === 'shipments') ? (
-              <div>Shipments</div>
+              <Shipments />
             ) : (sideBarRouter === 'projects') ? (
               <div>Projects</div>
             ) : (sideBarRouter === 'businesses') ? (
